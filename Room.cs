@@ -8,11 +8,10 @@ namespace HotelManagementProjectConsole
 {
     internal class Room
     {
-       public List<string> _roomNumber=new List<string>();
         public Room(string roomtype,string roomnumber) 
         { 
             _roomType = roomtype;//single bed room, double bed room,suit room
-            _roomNumber.Add(roomnumber);
+            _roomNumber = roomnumber;
         }
         public Room()
         {
@@ -20,5 +19,6 @@ namespace HotelManagementProjectConsole
         }
         public string _roomType {  get; set; }
         public bool  isRoomBooked {  get; set; }=false;
+        public string _roomNumber { get; set; }
     }
 }

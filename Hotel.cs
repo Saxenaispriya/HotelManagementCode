@@ -14,28 +14,41 @@ namespace HotelManagementProjectConsole
         {
             roomslst.Add(room);
         }
-        public void removeRoomsInHotel(Room room)
+        public void removeRoomsInHotel(string roomnumber)
         {
-            roomslst.Remove(room);
+            for(int i=0;i<roomslst.Count;i++)
+            {
+               if (roomnumber.Equals(roomslst[i]._roomNumber))
+               {
+                    //if (roomslst[i].isRoomBooked == true)
+                    //{
+                    //    Console.WriteLine("booked Room can not be Remove from Hotel it should be vaccant");
+                    //    break;
+                    //}
+                    roomslst.RemoveAt(i);
+               }
+            }
         }
         public void showAllAvailableRooms()
         {
-           // int i = 0;
+            if(roomslst.Count==0)
+            {
+                Console.WriteLine("No Rooms Added!!!");
+                return;
+            }
             foreach(Room _room in roomslst)
             {
                 if(_room.isRoomBooked.Equals(false))
                 {
-                    
                     Console.WriteLine("RoomType is:{0} ", _room._roomType);
-                   // Console.WriteLine("Room Number is: ", _room._roomNumber[i]);
-                   // i++;
+                    Console.WriteLine("Room Number: {0}", _room._roomNumber);
+                    Console.WriteLine();
                 }
             }
             Console.WriteLine();
         }
         public void bookRoom(string roomtype)
         {
-            // int i = 0;
             bool flag = false;
             foreach (Room room in roomslst)
            {
@@ -44,8 +57,7 @@ namespace HotelManagementProjectConsole
                     flag = true;
                     Console.WriteLine("you booked a Room now");
                     room.isRoomBooked = true;
-                   // Console.WriteLine("Your room number is: ", room._roomNumber[i]);
-                   // i++;
+                    Console.WriteLine("Your room number is: {0} ", room._roomNumber);
                     break;
                 }
            }
@@ -54,15 +66,15 @@ namespace HotelManagementProjectConsole
                 Console.WriteLine("All Rooms is booked");
             }
         }
-        public void vaccantRoom(string roomtype,string roomnumber)
+        public void vaccantRoom(string roomnumber)
         {
             foreach (Room room in roomslst)
             {
-                if (room._roomType.Equals(roomtype) && room.isRoomBooked.Equals(true))
+                if (roomnumber.Equals(room._roomNumber))
                 {
                     Console.WriteLine("you need to vaccant a Room now");
                     room.isRoomBooked = false;
-                    Console.WriteLine("Your room number is: ", roomnumber);
+                    Console.WriteLine("Room is Available: ", roomnumber);
                     break;
                 }
             }

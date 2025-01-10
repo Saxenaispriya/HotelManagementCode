@@ -15,11 +15,12 @@ namespace HotelManagementProjectConsole
             bool exit = true;
             while (exit)
             {
-                Console.WriteLine("1. Add room in Hotel");
+                Console.WriteLine("1. Add Room in Hotel");
                 Console.WriteLine("2. Show All Available Room");
-                Console.WriteLine("3. Remove room from Hotel");
-                Console.WriteLine("5. Book a room in hotel");
-                Console.WriteLine("6. exit");
+                Console.WriteLine("3. Remove Room from Hotel");
+                Console.WriteLine("5. Book a Room ");
+                Console.WriteLine("6. Vaccant a Room");
+                Console.WriteLine("7. exit");
 
                 Console.WriteLine("choose a numnber and enter accordingly");
 
@@ -42,13 +43,12 @@ namespace HotelManagementProjectConsole
                         hotel.showAllAvailableRooms();
                         break;
                     case 3:
-                        string roomType, roomnNumber;
-                        Console.WriteLine("enter room type like single double and suit room");
-                        roomType = Console.ReadLine();
+                        string roomnNumber;
                         Console.WriteLine("enter room number");
                         roomnNumber = Console.ReadLine();
-                        Room room1 = new Room(roomType, roomnNumber);
-                        hotel.removeRoomsInHotel(room1);
+                        hotel.removeRoomsInHotel(roomnNumber);
+                        //Room room1 = new Room(roomnNumber);
+                        //hotel.removeRoomsInHotel(room1);
                         Console.WriteLine("Room is Removed in Hotel");
                         break;
                     case 5:
@@ -59,6 +59,12 @@ namespace HotelManagementProjectConsole
                         Console.WriteLine("Room is booked in Hotel");
                         break;
                     case 6:
+                        string Roomnumber;
+                        Console.WriteLine("enter room number which you want to vaccant");
+                        Roomnumber = Console.ReadLine();
+                        hotel.vaccantRoom(Roomnumber);
+                        break;
+                    case 7:
                         exit = false;
                         break;
                 }
