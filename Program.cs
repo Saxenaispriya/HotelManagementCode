@@ -50,12 +50,15 @@ namespace HotelManagementProjectConsole
                         Console.WriteLine("Room is Removed in Hotel");
                         break;
                     case 5:
-                        string room_Type,servicename;
+                        string room_Type;
                         Console.WriteLine("enter room type like single double and suit room which you want to book");
                         room_Type = Console.ReadLine();
-                        Console.WriteLine("Would you like to include services like food/cab just type food/cab/no");
-                        servicename = Console.ReadLine();
-                        hotel.bookRoom(room_Type,servicename);
+                        Console.WriteLine("Do you require Cab Service type yes or no");
+                        string xyz= Console.ReadLine();
+                        Console.WriteLine("Do you require Food Service type yes or no");
+                        string zyx = Console.ReadLine();
+
+                        hotel.bookRoom(room_Type,xyz,zyx);
                         Console.WriteLine("Room is booked in Hotel");
                         break;
                     case 6:

@@ -28,42 +28,34 @@ namespace HotelManagementProjectConsole
 
         #region Methods
          
-        public double getRoomPrice(string roomtype)
+        public double getRoomPrice()
         {
-            Room room = new Room();
-            if(roomtype=="single")
+           switch(_roomType)
             {
-                room._roomPrice = 2000;
+                case "single":
+                    return 2000;
+                case "double":
+                    return 4000;
+                case "suit":
+                    return 5000;
+                default:
+                    return 1000;
             }
-            else if(roomtype=="double")
-            {
-                room._roomPrice = 4000;
-            }
-            else
-            {
-                room._roomPrice = 5000;
-            }
-           return room._roomPrice;
         }
 
-        public double getServicePrice(string servicename)
+        public double getPrice()
         {
-            food food = new food();
-            cab cab = new cab();
-            if (servicename == "food")
+            double sum = 0;
+            if (_food!=null)
             {
-               food.servicePrice = 3000;
-                return food.servicePrice;
+                sum = sum + _food.servicePrice;
             }
-            else if (servicename =="cab")
+            if (_cab!=null)
             {
-                cab.servicePrice = 2500;
-                return cab.servicePrice;
+                sum = sum + _cab.servicePrice;
             }
-            else
-            {
-                return 0.00;
-            }
+            sum= sum+getRoomPrice();
+            return sum;
         }
         #endregion
     }

@@ -20,11 +20,6 @@ namespace HotelManagementProjectConsole
             {
                 if (roomnumber.Equals(roomslst[i]._roomNumber))
                 {
-                    //if (roomslst[i].isRoomBooked == true)
-                    //{
-                    //    Console.WriteLine("booked Room can not be Remove from Hotel it should be vaccant");
-                    //    break;
-                    //}
                     roomslst.RemoveAt(i);
                 }
             }
@@ -47,7 +42,7 @@ namespace HotelManagementProjectConsole
             }
             Console.WriteLine();
         }
-        public void bookRoom(string roomtype,string servicename)
+        public void bookRoom(string roomtype,string xyz,string zyx)
         {
             bool flag = false;
             double paymoney;
@@ -55,11 +50,21 @@ namespace HotelManagementProjectConsole
             {
                 if (room._roomType.Equals(roomtype) && room.isRoomBooked.Equals(false))
                 {
+                    if(xyz=="yes")
+                    {
+                        cab cab = new cab();
+                        room._cab = cab;
+                    }
+                    if (zyx == "yes")
+                    {
+                        food food = new food();
+                        room._food = food;
+                    }
                     flag = true;
                     Console.WriteLine("you booked a Room now");
                     room.isRoomBooked = true;
                     Console.WriteLine("Your room number is: {0} ", room._roomNumber);
-                    paymoney = calculateBookedRoomPrice(servicename,room);
+                    paymoney = room.getPrice();
                     Console.WriteLine("You need to pay money at the time of vaccant: {0}",paymoney);
                     break;
                 }
@@ -68,20 +73,6 @@ namespace HotelManagementProjectConsole
             {
                 Console.WriteLine("All Rooms is booked");
             }
-        }
-
-        public double calculateBookedRoomPrice(string servicename,Room room)
-        {
-            double sum=0;
-            if(servicename=="food" || servicename=="cab")
-            {
-               sum= room.getRoomPrice(room._roomType)+room.getServicePrice(servicename);
-            }
-            else
-            {
-                sum = sum + room.getRoomPrice(room._roomType);
-            }
-            return sum;
         }
         public void vaccantRoom(string roomnumber)
         {

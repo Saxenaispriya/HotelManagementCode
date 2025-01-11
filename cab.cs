@@ -8,7 +8,12 @@ namespace HotelManagementProjectConsole
 {
     internal class cab
     {
-        public string serviceName { get; set; } = "cab";
+        public string serviceName { get; set; } 
         public double servicePrice {  get; set; }
+
+        public cab() {
+            servicePrice = 2000;
+            serviceName = "cab";
+        }
     }
 }

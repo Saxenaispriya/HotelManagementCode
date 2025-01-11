@@ -8,7 +8,13 @@ namespace HotelManagementProjectConsole
 {
     internal class food
     {
-        public string serviceName { get; set; } = "food";
+        public string serviceName { get; set; }
         public double servicePrice {  get; set; }
+
+        public food()
+        {
+            serviceName = "food";
+            servicePrice = 5000;
+        }
     }
 }
