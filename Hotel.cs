@@ -8,7 +8,7 @@ namespace HotelManagementProjectConsole
 {
     internal class Hotel
     {
-        List<Room> roomslst=new List<Room>();
+        List<Room> roomslst = new List<Room>();
         public Hotel() { }
         public void addRoomsInHotel(Room room)
         {
@@ -16,29 +16,29 @@ namespace HotelManagementProjectConsole
         }
         public void removeRoomsInHotel(string roomnumber)
         {
-            for(int i=0;i<roomslst.Count;i++)
+            for (int i = 0; i < roomslst.Count; i++)
             {
-               if (roomnumber.Equals(roomslst[i]._roomNumber))
-               {
+                if (roomnumber.Equals(roomslst[i]._roomNumber))
+                {
                     //if (roomslst[i].isRoomBooked == true)
                     //{
                     //    Console.WriteLine("booked Room can not be Remove from Hotel it should be vaccant");
                     //    break;
                     //}
                     roomslst.RemoveAt(i);
-               }
+                }
             }
         }
         public void showAllAvailableRooms()
         {
-            if(roomslst.Count==0)
+            if (roomslst.Count == 0)
             {
                 Console.WriteLine("No Rooms Added!!!");
                 return;
             }
-            foreach(Room _room in roomslst)
+            foreach (Room _room in roomslst)
             {
-                if(_room.isRoomBooked.Equals(false))
+                if (_room.isRoomBooked.Equals(false))
                 {
                     Console.WriteLine("RoomType is:{0} ", _room._roomType);
                     Console.WriteLine("Room Number: {0}", _room._roomNumber);
@@ -47,24 +47,41 @@ namespace HotelManagementProjectConsole
             }
             Console.WriteLine();
         }
-        public void bookRoom(string roomtype)
+        public void bookRoom(string roomtype,string servicename)
         {
             bool flag = false;
+            double paymoney;
             foreach (Room room in roomslst)
-           {
-                if(room._roomType.Equals(roomtype) && room.isRoomBooked.Equals(false))
+            {
+                if (room._roomType.Equals(roomtype) && room.isRoomBooked.Equals(false))
                 {
                     flag = true;
                     Console.WriteLine("you booked a Room now");
                     room.isRoomBooked = true;
                     Console.WriteLine("Your room number is: {0} ", room._roomNumber);
+                    paymoney = calculateBookedRoomPrice(servicename,room);
+                    Console.WriteLine("You need to pay money at the time of vaccant: {0}",paymoney);
                     break;
                 }
-           }
-           if(flag==false)
+            }
+            if (flag == false)
             {
                 Console.WriteLine("All Rooms is booked");
             }
+        }
+
+        public double calculateBookedRoomPrice(string servicename,Room room)
+        {
+            double sum=0;
+            if(servicename=="food" || servicename=="cab")
+            {
+               sum= room.getRoomPrice(room._roomType)+room.getServicePrice(servicename);
+            }
+            else
+            {
+                sum = sum + room.getRoomPrice(room._roomType);
+            }
+            return sum;
         }
         public void vaccantRoom(string roomnumber)
         {

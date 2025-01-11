@@ -22,7 +22,7 @@ namespace HotelManagementProjectConsole
                 Console.WriteLine("6. Vaccant a Room");
                 Console.WriteLine("7. exit");
 
-                Console.WriteLine("choose a numnber and enter accordingly");
+                Console.WriteLine("choose a number and enter accordingly");
 
                 int input;
                 input = Convert.ToInt32(Console.ReadLine());
@@ -47,15 +47,15 @@ namespace HotelManagementProjectConsole
                         Console.WriteLine("enter room number");
                         roomnNumber = Console.ReadLine();
                         hotel.removeRoomsInHotel(roomnNumber);
-                        //Room room1 = new Room(roomnNumber);
-                        //hotel.removeRoomsInHotel(room1);
                         Console.WriteLine("Room is Removed in Hotel");
                         break;
                     case 5:
-                        string room_Type;
+                        string room_Type,servicename;
                         Console.WriteLine("enter room type like single double and suit room which you want to book");
                         room_Type = Console.ReadLine();
-                        hotel.bookRoom(room_Type);
+                        Console.WriteLine("Would you like to include services like food/cab just type food/cab/no");
+                        servicename = Console.ReadLine();
+                        hotel.bookRoom(room_Type,servicename);
                         Console.WriteLine("Room is booked in Hotel");
                         break;
                     case 6:
