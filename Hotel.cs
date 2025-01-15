@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,12 +9,39 @@ namespace HotelManagementProjectConsole
 {
     internal class Hotel
     {
-        List<Room> roomslst = new List<Room>();
+       public List<Room> roomslst = new List<Room>();
+       public List<Booking> booklst = new List<Booking>();
         public Hotel() { }
         public void addRoomsInHotel(Room room)
         {
             roomslst.Add(room);
         }
+
+        public void createBooking()
+        {  
+            for(int i=0;i<2;i++)
+            {
+                int j = 101;
+                Room room = new Room("single",j);
+                roomslst.Add(room);
+                j++;
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                int j = 103;
+                Room room = new Room("double", j);
+                roomslst.Add(room);
+                j++;
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                int j = 105;
+                Room room = new Room("suit", j);
+                roomslst.Add(room);
+                j++;
+            }
+        }
+        //add room room type number of room
         public void removeRoomsInHotel(string roomnumber)
         {
             for (int i = 0; i < roomslst.Count; i++)
@@ -42,30 +70,35 @@ namespace HotelManagementProjectConsole
             }
             Console.WriteLine();
         }
-        public void bookRoom(string roomtype,string xyz,string zyx)
+        public void checkInRoom(string roomtype,string xyz,string zyx,string zyy,Room _room)//added in list
         {
             bool flag = false;
             double paymoney;
-            foreach (Room room in roomslst)
+            foreach (Booking booking in booklst)
             {
-                if (room._roomType.Equals(roomtype) && room.isRoomBooked.Equals(false))
+                if (_room._roomType.Equals(roomtype) && _room.isRoomBooked.Equals(false))
                 {
                     if(xyz=="yes")
                     {
                         cab cab = new cab();
-                        room._cab = cab;
+                        booking.hotelServices.Add(cab);
                     }
                     if (zyx == "yes")
                     {
                         food food = new food();
-                        room._food = food;
+                        booking.hotelServices.Add(food);
                     }
-                    flag = true;
-                    Console.WriteLine("you booked a Room now");
-                    room.isRoomBooked = true;
-                    Console.WriteLine("Your room number is: {0} ", room._roomNumber);
-                    paymoney = room.getPrice();
-                    Console.WriteLine("You need to pay money at the time of vaccant: {0}",paymoney);
+                    if (zyy == "yes")
+                    {
+                        LuggageService luggageService = new LuggageService();
+                        booking.hotelServices.Add(luggageService); 
+                    }
+                    //flag = true;
+                    //Console.WriteLine("you booked a Room now");
+                    //room.isRoomBooked = true;
+                    //Console.WriteLine("Your room number is: {0} ", room._roomNumber);
+                    //paymoney = room.getPrice();
+                    //Console.WriteLine("You need to pay money at the time of vaccant: {0}",paymoney);
                     break;
                 }
             }

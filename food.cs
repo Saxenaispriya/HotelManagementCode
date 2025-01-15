@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProjectConsole
 {
-    internal class food
+    internal class food:IHotelService
     {
         public string serviceName { get; set; }
         public double servicePrice {  get; set; }
@@ -15,6 +15,11 @@ namespace HotelManagementProjectConsole
         {
             serviceName = "food";
             servicePrice = 5000;
+        }
+
+        public double getServicePrice()
+        {
+            return servicePrice;
         }
     }
 }

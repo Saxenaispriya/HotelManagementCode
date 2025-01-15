@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProjectConsole
 {
-    internal class Room
+    internal class Room: IHotelService
     {
-        public Room(string roomtype,string roomnumber) 
-        { 
+        IHotelService _service;
+        //public List<IHotelService> hotelServices =new List<IHotelService>();
+        public Room(string roomtype, int roomnumber)
+        {
             _roomType = roomtype;//single bed room, double bed room,suit room
             _roomNumber = roomnumber;
         }
@@ -18,19 +20,14 @@ namespace HotelManagementProjectConsole
 
         }
         #region Properties 
-        public string _roomType {  get; set; }
-        public bool  isRoomBooked {  get; set; }=false;
-        public string _roomNumber { get; set; }
-        public double _roomPrice {  get; set; }
-        public food _food { get; set; }
-        public cab _cab { get; set; }
-        #endregion
+        public string _roomType { get; set; }
+        public bool isRoomBooked { get; set; } = false;
+        public int _roomNumber { get; set; }
+        public double _roomPrice { get; set; }
 
-        #region Methods
-         
-        public double getRoomPrice()
+        public double getServicePrice()
         {
-           switch(_roomType)
+            switch (_roomType)
             {
                 case "single":
                     return 2000;
@@ -43,20 +40,36 @@ namespace HotelManagementProjectConsole
             }
         }
 
-        public double getPrice()
-        {
-            double sum = 0;
-            if (_food!=null)
-            {
-                sum = sum + _food.servicePrice;
-            }
-            if (_cab!=null)
-            {
-                sum = sum + _cab.servicePrice;
-            }
-            sum= sum+getRoomPrice();
-            return sum;
-        }
+        #endregion
+
+        #region Methods
+
+        //public double getRoomPrice() 
+        //{
+        //   switch(_roomType)
+        //    {
+        //        case "single":
+        //            return 2000;
+        //        case "double":
+        //            return 4000;
+        //        case "suit":
+        //            return 5000;
+        //        default:
+        //            return 1000;
+        //    }
+        //}
+
+        //public double getPrice()
+        //{
+        //    double sum = 0;
+
+        //    foreach(IHotelService hotelService in hotelServices)
+        //    {
+        //      sum=sum+hotelService.getRoomPrice();
+        //    }
+        //    sum= sum+getRoomPrice();
+        //    return sum;
+        //}
         #endregion
     }
 }

@@ -30,14 +30,14 @@ namespace HotelManagementProjectConsole
                 switch (input)
                 {
                     case 1:
-                        string roomtype,roomnumber;
-                        Console.WriteLine("enter room type like single double and suit room");
-                        roomtype = Console.ReadLine();
-                        Console.WriteLine("enter room number");
-                        roomnumber = Console.ReadLine();
-                        Room room = new Room(roomtype,roomnumber);
-                        hotel.addRoomsInHotel(room);
-                        Console.WriteLine("Room is added in Hotel");
+                        //string roomtype; int roomnumber;
+                        //Console.WriteLine("enter room type like single double and suit room");
+                        //roomtype = Console.ReadLine();
+                        //Console.WriteLine("enter room number");
+                        //roomnumber =Convert.ToInt32(Console.ReadLine());
+                        //Booking room = new BookingRoom(roomtype,roomnumber);
+                        //hotel.addRoomsInHotel(room);
+                        //Console.WriteLine("Room is added in Hotel");
                         break;
                     case 2:
                         hotel.showAllAvailableRooms();
@@ -49,23 +49,54 @@ namespace HotelManagementProjectConsole
                         hotel.removeRoomsInHotel(roomnNumber);
                         Console.WriteLine("Room is Removed in Hotel");
                         break;
-                    case 5:
-                        string room_Type;
-                        Console.WriteLine("enter room type like single double and suit room which you want to book");
-                        room_Type = Console.ReadLine();
-                        Console.WriteLine("Do you require Cab Service type yes or no");
-                        string xyz= Console.ReadLine();
-                        Console.WriteLine("Do you require Food Service type yes or no");
-                        string zyx = Console.ReadLine();
+                    //case 5:
+                    //    string room_Type;
+                    //    Console.WriteLine("enter room type like single double and suit room which you want to book");
+                    //    room_Type = Console.ReadLine();
+                    //    Console.WriteLine("Do you Require Cab Service type yes or no");
+                    //    string xyz= Console.ReadLine();
+                    //    Console.WriteLine("Do you Require Food Service type yes or no");
+                    //    string zyx = Console.ReadLine();
+                    //    Console.WriteLine("Do you Require Luggage Service");
+                    //    string zyy= Console.ReadLine();
 
-                        hotel.bookRoom(room_Type,xyz,zyx);
-                        Console.WriteLine("Room is booked in Hotel");
-                        break;
+                    //    hotel.bookRoom(room_Type,xyz,zyx,zyy);
+                    //    Console.WriteLine("Room is booked in Hotel");
+                    //    break;
                     case 6:
                         string Roomnumber;
                         Console.WriteLine("enter room number which you want to vaccant");
                         Roomnumber = Console.ReadLine();
                         hotel.vaccantRoom(Roomnumber);
+                        break;
+                    case 5:
+                        Booking bookingRoom = new Booking();
+                        
+                        string name;int aadharnum;string _roomType;
+                        Console.WriteLine("enter which room do you want");
+                        _roomType = Console.ReadLine();
+                        if(bookingRoom.isBookedRoomAvailable(_roomType))
+                        {
+                            List<IHotelService> hotelServices = new List<IHotelService>();
+                            Console.WriteLine("enter your name");
+                            name = Console.ReadLine();
+                            Console.WriteLine("enter aadhar number in digits");
+                            aadharnum = Convert.ToInt32(Console.ReadLine());
+                            Booking bookingRoom1 = new Booking(name,aadharnum, _roomType);
+                            hotelServices.Add(bookingRoom.getVaccantRoom(_roomType));
+                            Console.WriteLine("Do you Require Cab Service type yes or no");
+                            string xyz = Console.ReadLine();
+                            Console.WriteLine("Do you Require Food Service type yes or no");
+                            string zyx = Console.ReadLine();
+                            Console.WriteLine("Do you Require Luggage Service");
+                            string zyy = Console.ReadLine();
+
+                            //hotel.checkInRoom(_roomType, xyz, zyx, zyy);
+                        }
+                        else
+                        {
+                            Console.WriteLine("you can not avail the room its booked");
+                        }
                         break;
                     case 7:
                         exit = false;

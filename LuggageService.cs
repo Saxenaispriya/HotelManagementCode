@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProjectConsole
 {
-    internal class cab:IHotelService
+    internal class LuggageService : IHotelService
     {
-        public string serviceName { get; set; } 
-        public double servicePrice {  get; set; }
-
-        public cab() {
-            servicePrice = 2000;
-            serviceName = "cab";
+        public string serviceName { get; set; }
+        public double servicePrice { get; set; }
+        public LuggageService() {
+            serviceName = "luggage";
+            servicePrice = 4000;
         }
-
         public double getServicePrice()
         {
            return servicePrice;
         }
+        
     }
 }
