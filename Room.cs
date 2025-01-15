@@ -9,7 +9,7 @@ namespace HotelManagementProjectConsole
     internal class Room: IService
     {
         IService _service;
-        //public List<IHotelService> hotelServices =new List<IHotelService>();
+    
         public Room(string roomtype, int roomnumber)
         {
             _roomType = roomtype;//single bed room, double bed room,suit room

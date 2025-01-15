@@ -9,41 +9,79 @@ namespace HotelManagementProjectConsole
 {
     internal class Hotel
     {
-       public List<Room> roomslst = new List<Room>();
-       public List<Booking> booklst = new List<Booking>();
+        public List<Room> roomslst = new List<Room>();
+        public List<Booking> booklst = new List<Booking>();
         public Hotel() { }
-        public void addRoomsInHotel(Room room)
+        public void addSingleRoomInHotel(Room room)
         {
             roomslst.Add(room);
         }
 
-        public void createBooking()//name change create room
+// a mod b 
+
+// 6 mod 5
+
+// 5 | 6
+
+//         7 -> 0, 1, 2 3 4 5 6 - (n -1)
+
+// 0 -> 0, 5
+// 1 -> 1, 6
+// 2 -> 2, 7
+// 3 -> 3, 8
+// 4 -> 4, 9
+
+// 0 -> 10
+// 1%5   
+
+
+        
+        public void InitRooms()//name change create room
         {
-             int j = 101;
-            for(int i=0;i<2;i++)
-            {
-                Room room = new Room("single",j);
-                room.isRoomBooked = true;
+            int roomNumber = 101;
+            for (int i = 0;i <6; i++){
+                var Room room;
+                if (i %3 == 0){
+                    room = new Room("single",roomNumber);
+                }
+
+                if (i % 3 ==1) {
+                    roomNumber = new Room("double", roomNumber)
+                }
+
+                if (i % 3 ==2) {
+                    roomNumber = new Room("double", roomNumber)
+                }
+
                 roomslst.Add(room);
-                j++;
+                roomNumber++;
             }
-            for (int i = 0; i < 2; i++)
-            {
-                Room room = new Room("double", j);
-                room.isRoomBooked = true;
-                roomslst.Add(room);
-                j++;
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                Room room = new Room("suit", j);
-                room.isRoomBooked = true;
-                roomslst.Add(room);
-                j++;
-            }
+
+            // for(int i=0;i<2;i++)
+            // {
+            //     Room room = new Room("single",roomNumber);
+            //     room.isRoomBooked = true;
+            //     roomslst.Add(room);
+            //     roomNumber++;
+            // }
+
+            // for (int i = 0; i < 2; i++)
+            // {
+            //     Room room = new Room("double", roomNumber);
+            //     room.isRoomBooked = true;
+            //     roomslst.Add(room);
+            //     roomNumber++;
+            // }
+            // for (int i = 0; i < 2; i++)
+            // {
+            //     Room room = new Room("suit", roomNumber);
+            //     room.isRoomBooked = true;
+            //     roomslst.Add(room);
+            //     roomNumber++;
+            // }
         }
         //add room room type number of room
-        public void removeRoomsInHotel(string roomnumber)
+        public void removeRoomInHotel(string roomnumber)
         {
             for (int i = 0; i < roomslst.Count; i++)
             {
@@ -72,10 +110,8 @@ namespace HotelManagementProjectConsole
             Console.WriteLine();
         }
 
-        public bool isBookedRoomAvailable(string roomtype)
+        public bool isRoomAvailableByRoomType(string roomtype)
         {
-            //List<Room> roomlist = new List<Room>();
-            bool flag = false;
             foreach (Room _room in roomslst)
             {
                 if (_room.isRoomBooked.Equals(true) && _room._roomType.Equals(roomtype))
@@ -83,11 +119,10 @@ namespace HotelManagementProjectConsole
                     return true;
                 }
             }
-            return flag;
+            return false;
         }
-        public Room getroombytype(string roomtype)
+        public Room getRoomByType(string roomtype)
         {
-            //List<Room> roomlist = new List<Room>();
             Room room = new Room();
             foreach (Room _room in roomslst)
             {
@@ -99,39 +134,36 @@ namespace HotelManagementProjectConsole
             }
             return room;
         }
-        public void checkInRoom(string xyz,string zyx,string zyy, Booking booking,Room room)//added in list
+
+        public void checkInRoom(string roomtype)//added in list
         {
-            bool flag = false;
-                    if(xyz=="yes")
-                    {
-                        cab cab = new cab();
-                        booking.hotelServices.Add(cab);
-                    }
-                    if (zyx == "yes")
-                    {
-                        food food = new food();
-                        booking.hotelServices.Add(food);
-                    }
-                    if (zyy == "yes")
-                    {
-                        LuggageService luggageService = new LuggageService();
-                        booking.hotelServices.Add(luggageService); 
-                    }
-                     booking.hotelServices.Add(room);
-                     booklst.Add(booking);
-                     flag = true;
-                    Console.WriteLine("you booked a Room");
-            Console.WriteLine("your room number is:" + room._roomNumber + " ");
+            Room room;
+            room = hotel.getroombytype(_roomType);
+            Console.WriteLine("enter your name");
+            name = Console.ReadLine();
+            Console.WriteLine("enter aadhar number in digits");
+            aadharnum = Convert.ToInt32(Console.ReadLine());
+            Booking booking = new Booking(name,aadharnum, _roomType, room._roomNumber);
 
-            //room.isRoomBooked = true;
-            //Console.WriteLine("Your room number is: {0} ", room._roomNumber);
-            //paymoney = room.getPrice();
-            //Console.WriteLine("You need to pay money at the time of vaccant: {0}",paymoney);
+            Console.WriteLine("Do you Require Cab Service type yes or no");
+            string useChoice = Console.ReadLine();
+            if (userChoice == "yes"){
+                booking.hotelServices.Add(new cab())
+            } 
 
-            if (flag == false)
-            {
-                Console.WriteLine("All Rooms is booked");
-            }
+            Console.WriteLine("Do you Require Food Service type yes or no");
+            string useChoice = Console.ReadLine();
+            if (userChoice == "yes"){
+                booking.hotelServices.Add(new food())
+            } 
+            
+            Console.WriteLine("Do you Require Luggage Service");
+            string useChoice = Console.ReadLine();
+            if (userChoice == "yes"){
+                booking.hotelServices.Add(new cab())
+            } 
+
+            room.isRoomBooked = false;
         }
         public void vaccantRoom(string roomnumber)
         {
@@ -165,11 +197,9 @@ namespace HotelManagementProjectConsole
             {
                 if (bookingid.Equals(room._roomNumber))
                 {
-                    room.isRoomBooked = true;
-                    Console.WriteLine("you need to vaccant a Room now");
-                    room.isRoomBooked = true;
-                    Console.WriteLine("Room is Available: " + room._roomNumber);
-                    break;
+                    room.isRoomBooked = true
+                    Console.WriteLine("Room is vaccant: " + room._roomNumber);
+                    return;
                 }
             }
         }

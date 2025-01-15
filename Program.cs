@@ -73,29 +73,14 @@ namespace HotelManagementProjectConsole
                         hotel.checkoutRoom(Roomnumber);
                         break;
                     case 5:
-                        string name;int aadharnum;string _roomType;
-                        Console.WriteLine("enter which room do you want");
-                        _roomType = Console.ReadLine();
-                        if(hotel.isBookedRoomAvailable(_roomType))//hotel 
-                        {
-                            Booking bookingRoom = new Booking();
-                            Room room = new Room();
-                            room = hotel.getroombytype(_roomType);
-                            //List<IService> hotelServices = new List<IService>();
-                            Console.WriteLine("enter your name");
-                            name = Console.ReadLine();
-                            Console.WriteLine("enter aadhar number in digits");
-                            aadharnum = Convert.ToInt32(Console.ReadLine());
-                            Booking bookingRoom1 = new Booking(name,aadharnum, _roomType, room._roomNumber);
-                            //hotelServices.Add(hotel.getroombytype(_roomType));
-                            Console.WriteLine("Do you Require Cab Service type yes or no");
-                            string xyz = Console.ReadLine();
-                            Console.WriteLine("Do you Require Food Service type yes or no");
-                            string zyx = Console.ReadLine();
-                            Console.WriteLine("Do you Require Luggage Service");
-                            string zyy = Console.ReadLine();
-                            hotel.getroombytype(_roomType).isRoomBooked = false;
-                            hotel.checkInRoom(xyz, zyx, zyy, bookingRoom1, room);
+                            Console.WriteLine("enter which room do you want");
+                            _roomType = Console.ReadLine();
+                            bool available = hotel.isBookedRoomAvailable(_roomType)
+                            if (!available) {
+                                Console.WriteLine("No room avaialble");
+                                break 
+                            }
+                            hotel.checkInRoom(_roomType)
                         }
                         else
                         {

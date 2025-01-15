@@ -10,14 +10,16 @@ namespace HotelManagementProjectConsole
     {
         public string serviceName { get; set; }
         public double servicePrice { get; set; }
+
         public LuggageService() {
             serviceName = "luggage";
             servicePrice = 4000;
         }
+
         public double getServicePrice()
         {
            return servicePrice;
         }
-        
+    
     }
 }
