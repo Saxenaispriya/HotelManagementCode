@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProjectConsole
 {
-    internal class cab:IHotelService
+    internal class cab:IService
     {
         public string serviceName { get; set; } 
         public double servicePrice {  get; set; }

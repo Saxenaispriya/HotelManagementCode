@@ -11,15 +11,17 @@ namespace HotelManagementProjectConsole
         static void Main(string[] args)
         {
             Hotel hotel = new Hotel();
+            hotel.createBooking();
 
             bool exit = true;
             while (exit)
             {
-                Console.WriteLine("1. Add Room in Hotel");
+                // Console.WriteLine("1. Add Room in Hotel");
+                
                 Console.WriteLine("2. Show All Available Room");
                 Console.WriteLine("3. Remove Room from Hotel");
                 Console.WriteLine("5. Book a Room ");
-                Console.WriteLine("6. Vaccant a Room");
+                Console.WriteLine("6. Checkout Room");
                 Console.WriteLine("7. exit");
 
                 Console.WriteLine("choose a number and enter accordingly");
@@ -29,7 +31,7 @@ namespace HotelManagementProjectConsole
 
                 switch (input)
                 {
-                    case 1:
+                   // case 1:
                         //string roomtype; int roomnumber;
                         //Console.WriteLine("enter room type like single double and suit room");
                         //roomtype = Console.ReadLine();
@@ -38,7 +40,7 @@ namespace HotelManagementProjectConsole
                         //Booking room = new BookingRoom(roomtype,roomnumber);
                         //hotel.addRoomsInHotel(room);
                         //Console.WriteLine("Room is added in Hotel");
-                        break;
+                       // break;
                     case 2:
                         hotel.showAllAvailableRooms();
                         break;
@@ -64,34 +66,36 @@ namespace HotelManagementProjectConsole
                     //    Console.WriteLine("Room is booked in Hotel");
                     //    break;
                     case 6:
-                        string Roomnumber;
+                        int Roomnumber;
                         Console.WriteLine("enter room number which you want to vaccant");
-                        Roomnumber = Console.ReadLine();
-                        hotel.vaccantRoom(Roomnumber);
+                        Roomnumber =Convert.ToInt32(Console.ReadLine());
+                        // hotel.vaccantRoom(Roomnumber);
+                        hotel.checkoutRoom(Roomnumber);
                         break;
                     case 5:
-                        Booking bookingRoom = new Booking();
-                        
                         string name;int aadharnum;string _roomType;
                         Console.WriteLine("enter which room do you want");
                         _roomType = Console.ReadLine();
-                        if(bookingRoom.isBookedRoomAvailable(_roomType))
+                        if(hotel.isBookedRoomAvailable(_roomType))//hotel 
                         {
-                            List<IHotelService> hotelServices = new List<IHotelService>();
+                            Booking bookingRoom = new Booking();
+                            Room room = new Room();
+                            room = hotel.getroombytype(_roomType);
+                            //List<IService> hotelServices = new List<IService>();
                             Console.WriteLine("enter your name");
                             name = Console.ReadLine();
                             Console.WriteLine("enter aadhar number in digits");
                             aadharnum = Convert.ToInt32(Console.ReadLine());
-                            Booking bookingRoom1 = new Booking(name,aadharnum, _roomType);
-                            hotelServices.Add(bookingRoom.getVaccantRoom(_roomType));
+                            Booking bookingRoom1 = new Booking(name,aadharnum, _roomType, room._roomNumber);
+                            //hotelServices.Add(hotel.getroombytype(_roomType));
                             Console.WriteLine("Do you Require Cab Service type yes or no");
                             string xyz = Console.ReadLine();
                             Console.WriteLine("Do you Require Food Service type yes or no");
                             string zyx = Console.ReadLine();
                             Console.WriteLine("Do you Require Luggage Service");
                             string zyy = Console.ReadLine();
-
-                            //hotel.checkInRoom(_roomType, xyz, zyx, zyy);
+                            hotel.getroombytype(_roomType).isRoomBooked = false;
+                            hotel.checkInRoom(xyz, zyx, zyy, bookingRoom1, room);
                         }
                         else
                         {

@@ -6,14 +6,29 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProjectConsole
 {
-    internal class Room: IHotelService
+    internal class Room: IService
     {
-        IHotelService _service;
+        IService _service;
         //public List<IHotelService> hotelServices =new List<IHotelService>();
         public Room(string roomtype, int roomnumber)
         {
             _roomType = roomtype;//single bed room, double bed room,suit room
             _roomNumber = roomnumber;
+            switch (_roomType)
+            {
+                case "single":
+                    _roomPrice= 2000;
+                    break;
+                case "double":
+                    _roomPrice= 4000;
+                    break;
+                case "suit":
+                    _roomPrice= 5000;
+                    break;
+                default:
+                    _roomPrice=  1000;
+                    break;
+            }
         }
         public Room()
         {
