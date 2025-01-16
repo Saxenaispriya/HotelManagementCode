@@ -11,13 +11,12 @@ namespace HotelManagementProjectConsole
         static void Main(string[] args)
         {
             Hotel hotel = new Hotel();
-            hotel.createBooking();
+            hotel.InitRooms();
 
             bool exit = true;
             while (exit)
             {
                 // Console.WriteLine("1. Add Room in Hotel");
-                
                 Console.WriteLine("2. Show All Available Room");
                 Console.WriteLine("3. Remove Room from Hotel");
                 Console.WriteLine("5. Book a Room ");
@@ -31,61 +30,42 @@ namespace HotelManagementProjectConsole
 
                 switch (input)
                 {
-                   // case 1:
-                        //string roomtype; int roomnumber;
-                        //Console.WriteLine("enter room type like single double and suit room");
-                        //roomtype = Console.ReadLine();
-                        //Console.WriteLine("enter room number");
-                        //roomnumber =Convert.ToInt32(Console.ReadLine());
-                        //Booking room = new BookingRoom(roomtype,roomnumber);
-                        //hotel.addRoomsInHotel(room);
-                        //Console.WriteLine("Room is added in Hotel");
-                       // break;
+                    //case 1:
+                    //    string roomtype; int roomnumber;
+                    //    Console.WriteLine("enter room type like single double and suit room");
+                    //    roomtype = Console.ReadLine();
+                    //    Console.WriteLine("enter room number");
+                    //    roomnumber = Convert.ToInt32(Console.ReadLine());
+                    //    Booking room = new BookingRoom(roomtype, roomnumber);
+                    //    hotel.addSingleRoomInHotel(room);
+                    //    Console.WriteLine("Room is added in Hotel");
+                    //    break;
                     case 2:
                         hotel.showAllAvailableRooms();
                         break;
                     case 3:
-                        string roomnNumber;
+                        int roomnNumber;
                         Console.WriteLine("enter room number");
-                        roomnNumber = Console.ReadLine();
-                        hotel.removeRoomsInHotel(roomnNumber);
+                        roomnNumber =Convert.ToInt32(Console.ReadLine());
+                        hotel.removeRoomInHotel(roomnNumber);
                         Console.WriteLine("Room is Removed in Hotel");
                         break;
-                    //case 5:
-                    //    string room_Type;
-                    //    Console.WriteLine("enter room type like single double and suit room which you want to book");
-                    //    room_Type = Console.ReadLine();
-                    //    Console.WriteLine("Do you Require Cab Service type yes or no");
-                    //    string xyz= Console.ReadLine();
-                    //    Console.WriteLine("Do you Require Food Service type yes or no");
-                    //    string zyx = Console.ReadLine();
-                    //    Console.WriteLine("Do you Require Luggage Service");
-                    //    string zyy= Console.ReadLine();
-
-                    //    hotel.bookRoom(room_Type,xyz,zyx,zyy);
-                    //    Console.WriteLine("Room is booked in Hotel");
-                    //    break;
                     case 6:
                         int Roomnumber;
                         Console.WriteLine("enter room number which you want to vaccant");
-                        Roomnumber =Convert.ToInt32(Console.ReadLine());
-                        // hotel.vaccantRoom(Roomnumber);
+                        Roomnumber = Convert.ToInt32(Console.ReadLine());
                         hotel.checkoutRoom(Roomnumber);
                         break;
                     case 5:
-                            Console.WriteLine("enter which room do you want");
-                            _roomType = Console.ReadLine();
-                            bool available = hotel.isBookedRoomAvailable(_roomType)
-                            if (!available) {
-                                Console.WriteLine("No room avaialble");
-                                break 
-                            }
-                            hotel.checkInRoom(_roomType)
-                        }
-                        else
+                        Console.WriteLine("enter which room do you want");
+                        string _roomType = Console.ReadLine();
+                        bool available = hotel.isRoomAvailableByRoomType(_roomType);
+                        if (!available)
                         {
-                            Console.WriteLine("you can not avail the room its booked");
+                            Console.WriteLine("No room avaialble");
+                            return;
                         }
+                        hotel.checkInRoom(_roomType);
                         break;
                     case 7:
                         exit = false;

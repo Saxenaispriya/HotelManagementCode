@@ -16,72 +16,29 @@ namespace HotelManagementProjectConsole
         {
             roomslst.Add(room);
         }
-
-// a mod b 
-
-// 6 mod 5
-
-// 5 | 6
-
-//         7 -> 0, 1, 2 3 4 5 6 - (n -1)
-
-// 0 -> 0, 5
-// 1 -> 1, 6
-// 2 -> 2, 7
-// 3 -> 3, 8
-// 4 -> 4, 9
-
-// 0 -> 10
-// 1%5   
-
-
-        
-        public void InitRooms()//name change create room
+        public void InitRooms()
         {
             int roomNumber = 101;
             for (int i = 0;i <6; i++){
-                var Room room;
+                Room room=null;
                 if (i %3 == 0){
                     room = new Room("single",roomNumber);
                 }
 
                 if (i % 3 ==1) {
-                    roomNumber = new Room("double", roomNumber)
+                    room = new Room("double", roomNumber);
                 }
 
                 if (i % 3 ==2) {
-                    roomNumber = new Room("double", roomNumber)
+                    room = new Room("suit", roomNumber);
                 }
 
                 roomslst.Add(room);
+                room.isRoomAvailable = true;
                 roomNumber++;
             }
-
-            // for(int i=0;i<2;i++)
-            // {
-            //     Room room = new Room("single",roomNumber);
-            //     room.isRoomBooked = true;
-            //     roomslst.Add(room);
-            //     roomNumber++;
-            // }
-
-            // for (int i = 0; i < 2; i++)
-            // {
-            //     Room room = new Room("double", roomNumber);
-            //     room.isRoomBooked = true;
-            //     roomslst.Add(room);
-            //     roomNumber++;
-            // }
-            // for (int i = 0; i < 2; i++)
-            // {
-            //     Room room = new Room("suit", roomNumber);
-            //     room.isRoomBooked = true;
-            //     roomslst.Add(room);
-            //     roomNumber++;
-            // }
         }
-        //add room room type number of room
-        public void removeRoomInHotel(string roomnumber)
+        public void removeRoomInHotel(int roomnumber)
         {
             for (int i = 0; i < roomslst.Count; i++)
             {
@@ -100,7 +57,7 @@ namespace HotelManagementProjectConsole
             }
             foreach (Room _room in roomslst)
             {
-                if (_room.isRoomBooked.Equals(true))
+                if (_room.isRoomAvailable.Equals(true))
                 {
                     Console.WriteLine("RoomType is:{0} ", _room._roomType);
                     Console.WriteLine("Room Number: {0}", _room._roomNumber);
@@ -114,7 +71,7 @@ namespace HotelManagementProjectConsole
         {
             foreach (Room _room in roomslst)
             {
-                if (_room.isRoomBooked.Equals(true) && _room._roomType.Equals(roomtype))
+                if (_room.isRoomAvailable.Equals(true) && _room._roomType.Equals(roomtype))
                 {
                     return true;
                 }
@@ -126,7 +83,7 @@ namespace HotelManagementProjectConsole
             Room room = new Room();
             foreach (Room _room in roomslst)
             {
-                if (_room.isRoomBooked.Equals(true) && _room._roomType.Equals(roomtype))
+                if (_room.isRoomAvailable.Equals(true) && _room._roomType.Equals(roomtype))
                 {
                     room = _room;
                     return _room;
@@ -135,35 +92,34 @@ namespace HotelManagementProjectConsole
             return room;
         }
 
-        public void checkInRoom(string roomtype)//added in list
+        public void checkInRoom(string roomtype)
         {
             Room room;
-            room = hotel.getroombytype(_roomType);
+            room = getRoomByType(roomtype);
             Console.WriteLine("enter your name");
-            name = Console.ReadLine();
+           string name = Console.ReadLine();
             Console.WriteLine("enter aadhar number in digits");
-            aadharnum = Convert.ToInt32(Console.ReadLine());
-            Booking booking = new Booking(name,aadharnum, _roomType, room._roomNumber);
+           int aadharnum = Convert.ToInt32(Console.ReadLine());
+            Booking booking = new Booking(name,aadharnum, roomtype, room._roomNumber);
 
             Console.WriteLine("Do you Require Cab Service type yes or no");
-            string useChoice = Console.ReadLine();
+            string userChoice = Console.ReadLine();
             if (userChoice == "yes"){
-                booking.hotelServices.Add(new cab())
+                booking.hotelServices.Add(new cab());
             } 
 
             Console.WriteLine("Do you Require Food Service type yes or no");
             string useChoice = Console.ReadLine();
             if (userChoice == "yes"){
-                booking.hotelServices.Add(new food())
+                booking.hotelServices.Add(new food());
             } 
             
             Console.WriteLine("Do you Require Luggage Service");
-            string useChoice = Console.ReadLine();
-            if (userChoice == "yes"){
-                booking.hotelServices.Add(new cab())
+            string userPref = Console.ReadLine();
+            if (userPref == "yes"){
+                booking.hotelServices.Add(new cab());
             } 
-
-            room.isRoomBooked = false;
+            room.isRoomAvailable = false;
         }
         public void vaccantRoom(string roomnumber)
         {
@@ -172,7 +128,7 @@ namespace HotelManagementProjectConsole
                 if (roomnumber.Equals(room._roomNumber))
                 {
                     Console.WriteLine("you need to vaccant a Room now");
-                    room.isRoomBooked = false;
+                    room.isRoomAvailable = false;
                     Console.WriteLine("Room is Available: ", roomnumber);
                     break;
                 }
@@ -197,7 +153,7 @@ namespace HotelManagementProjectConsole
             {
                 if (bookingid.Equals(room._roomNumber))
                 {
-                    room.isRoomBooked = true
+                    room.isRoomAvailable = true;
                     Console.WriteLine("Room is vaccant: " + room._roomNumber);
                     return;
                 }

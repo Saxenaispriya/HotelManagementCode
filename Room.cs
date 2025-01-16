@@ -36,7 +36,7 @@ namespace HotelManagementProjectConsole
         }
         #region Properties 
         public string _roomType { get; set; }
-        public bool isRoomBooked { get; set; } = false;
+        public bool isRoomAvailable { get; set; } = false;
         public int _roomNumber { get; set; }
         public double _roomPrice { get; set; }
 
