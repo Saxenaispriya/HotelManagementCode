@@ -44,7 +44,13 @@ namespace HotelManagementProjectConsole
             {
                 if (roomnumber.Equals(roomslst[i]._roomNumber))
                 {
+                    if (!roomslst[i].isRoomAvailable == true)
+                    {
+                        Console.WriteLine("First Check-out Room then try to remove");
+                        return;
+                    }
                     roomslst.RemoveAt(i);
+                    Console.WriteLine("Room removed from hotel");
                 }
             }
         }
@@ -101,24 +107,26 @@ namespace HotelManagementProjectConsole
             Console.WriteLine("enter aadhar number in digits");
            int aadharnum = Convert.ToInt32(Console.ReadLine());
             Booking booking = new Booking(name,aadharnum, roomtype, room._roomNumber);
+            booking.hotelServices.Add(room);
 
             Console.WriteLine("Do you Require Cab Service type yes or no");
-            string userChoice = Console.ReadLine();
-            if (userChoice == "yes"){
+            string userChoicecab = Console.ReadLine();
+            if (userChoicecab == "yes"){
                 booking.hotelServices.Add(new cab());
             } 
 
             Console.WriteLine("Do you Require Food Service type yes or no");
-            string useChoice = Console.ReadLine();
-            if (userChoice == "yes"){
+            string useChoicefood = Console.ReadLine();
+            if (useChoicefood == "yes"){
                 booking.hotelServices.Add(new food());
             } 
             
             Console.WriteLine("Do you Require Luggage Service");
             string userPref = Console.ReadLine();
             if (userPref == "yes"){
-                booking.hotelServices.Add(new cab());
-            } 
+                booking.hotelServices.Add(new LuggageService());
+            }
+            booklst.Add(booking);
             room.isRoomAvailable = false;
         }
         public void vaccantRoom(string roomnumber)
@@ -136,19 +144,27 @@ namespace HotelManagementProjectConsole
         }
         public void checkoutRoom(int bookingid)
         {
-            
-            double sum = 0;
+            double sum = 0,res;
+        
             foreach(Booking booking in booklst)
             {
                 if(booking.bookingID.Equals(bookingid))
                 {
-                    foreach(IService service in booking.hotelServices)
-                    {
+                   foreach(IService service in booking.hotelServices)
+                   {
                         sum=sum+service.getServicePrice();
-                    }
+                   }
                 }
             }
-            Console.WriteLine("you will pay amount:" + sum);
+           
+            Console.WriteLine("Amount: " + sum);
+            Console.WriteLine("In which mode you will pay amount UPI or Debit Card");
+            string mode=Console.ReadLine();
+            
+            IPayment payment=PaymentFactory.GetPayment(mode);
+            res=payment.paymentAmount(sum);
+
+            Console.WriteLine("payment done" + res);
             foreach (Room room in roomslst)
             {
                 if (bookingid.Equals(room._roomNumber))

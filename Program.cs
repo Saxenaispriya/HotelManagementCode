@@ -48,7 +48,6 @@ namespace HotelManagementProjectConsole
                         Console.WriteLine("enter room number");
                         roomnNumber =Convert.ToInt32(Console.ReadLine());
                         hotel.removeRoomInHotel(roomnNumber);
-                        Console.WriteLine("Room is Removed in Hotel");
                         break;
                     case 6:
                         int Roomnumber;
